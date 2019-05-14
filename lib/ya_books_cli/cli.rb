@@ -15,12 +15,12 @@
     elsif @input == 'exit'
       puts "Thank you for joining us!"
     else
-      puts "Sorry, that command is not recognized"
+      puts "Sorry, that command is not recognized."
     end
   end
   
   def list_books
-  
+    
   end
   
   
