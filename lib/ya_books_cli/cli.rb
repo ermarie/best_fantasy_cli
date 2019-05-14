@@ -1,8 +1,9 @@
-'class CLI 
+class CLI 
 
   attr_reader :input
   
   def run 
+    make_books
     puts "Welcome to the Best Young Adult Fantasy Books!"
     puts "To view the list of the Best Young Adult Fantasy Books enter 'list books'"
     puts "To quit, enter 'exit'"
@@ -17,6 +18,10 @@
     else
       puts "Sorry, that command is not recognized."
     end
+  end
+  
+  def make_books
+    books_arr = Scraper.scrape_index_page(http://bestfantasybooks.com/best-young-adult-fantasy-books.html)
   end
   
   def list_books
