@@ -1,6 +1,7 @@
 require 'pry'
 require 'nokogiri'
 require 'open-uri'
+require 'colorize'
 
 require_relative "./ya_books_cli/cli"
 require_relative "./ya_books_cli/version"

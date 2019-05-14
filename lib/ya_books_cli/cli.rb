@@ -22,7 +22,40 @@ class CLI
   end
   
   def list_books
-    Book.all.each { |book| puts "#{book.num}. #{book.name} by #{book.author}" }
+    Book.all.each { |book| puts "#{book.num}. ".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}"}
+    puts "----------------------".colorize(:green)
+    puts "Please enter a book number for further information on that book."
+    puts "Or enter 'exit' to exit."
+
+    get_input
+
+    if @input == "exit\n"
+      return puts "Thank you for using our app!"
+    else
+      @input = @input.to_i
+      find_book
+    end
+  end
+  
+  def get_input
+    @input = gets
+  end
+  
+  def find_book
+    list_length = Book.all.last.num.to_i + 1
+    
+    if input < list_length && input > 0
+      book = Book.all.find { |book| book.num == @input }
+      puts "#{book.num}. ".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}"
+    elsif input > list_length || input < 0
+      puts "That number is not recognized. Please pick a number between 1 and #{list_length - 1}."
+      get_input
+      find_book
+    else
+      puts "Please enter numbers only."
+      get_input
+      find_book
+    end
   end
   
   
