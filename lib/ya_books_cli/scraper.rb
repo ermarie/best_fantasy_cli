@@ -1,14 +1,27 @@
 class Scraper
   
   def self.scrape_page
-    book_array = []
+
     doc = Nokogiri::HTML(open("http://bestfantasybooks.com/lists/list/Crowd/Best-Fantasy-Books-for-Women"))
-    num = 0
+
+    self.get_attributes_and_create(doc)
+    
+    page = 1 
+    
+    5.times do
+      page += 1
+      doc = Nokogiri::HTML(open("http://bestfantasybooks.com/lists/list/Crowd/Best-Fantasy-Books-for-Women/page-#{page}"))
+      get_attributes_and_create(doc)
+    end
+  end
+  
+  def self.get_attributes_and_create(doc)
+    book_array = []
+        
     doc.css("div.list_item").each do |book|
-    num += 1
 
     book = {
-    :num => num,
+    :num => book.css("div.col-sm-3").text.to_i,
     :name => book.css("h2").css("a").text,
     :author => book.css("h3").first.css("a").text,
     :link => "http://bestfantasybooks.com#{book.css("h2").css("a").attribute('href').value}"
@@ -18,6 +31,7 @@ class Scraper
     end
 
     Book.create_from_collection(book_array)
+    
   end
   
   def self.scrape_book_page(book)
@@ -34,6 +48,7 @@ class Scraper
       :name => also_liked_book.css("div.also_liked_text").css("a").text,
       :author => also_liked_book.css("div.also_liked_author").text
      }
-   end
+    end
+  end
 
 end

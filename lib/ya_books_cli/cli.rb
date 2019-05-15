@@ -3,16 +3,20 @@ class CLI
   attr_reader :input
   
   def run 
-    Scraper.scrape_page
+
     
     puts "Welcome to the Best Young Adult Fantasy Books!"
-    puts "To view the list of the Best Young Adult Fantasy Books enter 'list books'"
-    puts "To quit, enter 'exit'"
+    puts "To view the list of the Best Young Adult Fantasy Books enter" + " 'list books'".colorize(:green)
+    puts "To quit, enter" + " 'exit'".colorize(:green)
     puts 'What would you like to do?'
 
     @input = gets
 
     if @input == "list books\n"
+      if Book.all == []
+        puts "Loading...".colorize(:red) + "this may take a few moments.".colorize(:light_blue)
+        Scraper.scrape_page
+      end
       list_books
     elsif @input == "exit\n"
       puts "Thank you for joining us!"
