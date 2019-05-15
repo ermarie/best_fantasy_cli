@@ -42,16 +42,17 @@ class CLI
   def find_book
     list_length = Book.all.last.num.to_i
     input = @input.to_i
-    binding.pry
+
     if input < (list_length + 1) && input > 0
-      
-      book = Book.all.find { |book| book.num == @input }
-      
-      puts "#{book.num}. ".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}\n"
-      puts "----------------------\n".colorize(:green)
+
+      book = Book.all.find { |book| book.num == input }
+      Scraper.scrape_book_page(book)
+
+      puts "\n\n#{book.num}. ".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}"
+      puts "\n----------------------".colorize(:green)
       puts "#{book.rating}".colorize(:yellow)
-      puts "#{book.list_ranking}\n".colorize(:red)
-      puts "----------------------\n".colorize(:green)
+      puts "#{book.list_ranking}".colorize(:red)
+      puts "----------------------".colorize(:green)
       puts "#{book.description}\n"
       puts "----------------------\n".colorize(:green)
       puts "To view the list again, please enter " + " 'list books'".colorize(:green)

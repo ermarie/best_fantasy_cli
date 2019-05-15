@@ -26,7 +26,7 @@ class Scraper
     :author => book.css("h3").first.css("a").text,
     :link => "http://bestfantasybooks.com#{book.css("h2").css("a").attribute('href').value}"
     }
-
+    
     book_array << book
     end
 
