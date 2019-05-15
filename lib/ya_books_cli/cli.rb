@@ -36,7 +36,9 @@ class CLI
     elsif @input == "exit\n"
       puts "Thank you for joining us!"
     else
-      puts "Sorry, that command is not recognized. Please try again"
+      puts "Sorry, that command is not recognized. Please try again."
+      get_input
+      input_reply
     end
   end
   
@@ -47,7 +49,9 @@ class CLI
     if input < (list_length + 1) && input > 0
       
       book = Book.all.find { |book| book.num == input }
-      Scraper.scrape_book_page(book)
+      if book.rating == nil
+        Scraper.scrape_book_page(book)
+      end
 
       puts "\n#{book.num}. ".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}"
       puts "\n----------------------".colorize(:green)

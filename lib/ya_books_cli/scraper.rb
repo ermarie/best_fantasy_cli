@@ -50,8 +50,8 @@
     doc.css("div.also_liked_book").each do |also_liked_book|
     book = {
       :name => also_liked_book.css("div.also_liked_text").css("a").text,
-      :author => also_liked_book.css("div.also_liked_author").text
-      :link => "http://bestfantasybooks.com#{book.css("h2").css("a").attribute('href').value}"
+      :author => also_liked_book.css("div.also_liked_author").text,
+      #:link => "http://bestfantasybooks.com#{also_liked_book.css("h2").css("a").attribute('href').value}"
      }
     end
   end
