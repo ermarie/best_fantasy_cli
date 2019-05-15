@@ -11,20 +11,7 @@ class CLI
     puts 'What would you like to do?'
 
     get_input
-  end
-  
-  def list_books
-    Book.all.each { |book| puts "#{book.num}. ".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}"}
-    puts "----------------------".colorize(:green)
-    puts "Please enter a " + "book number".colorize(:green) + " for further information on that book."
-    puts "Or enter " + "'exit'".colorize(:green) + " to exit."
     
-    get_input
-  end
-  
-  def get_input
-    @input = gets
-
     if @input == "list books\n"
       if Book.all == []
         puts "Loading...".colorize(:red) + "this may take a few moments.".colorize(:light_blue)
@@ -34,14 +21,28 @@ class CLI
     elsif @input == "exit\n"
       puts "Thank you for joining us!"
     else
-      puts "Sorry, that command is not recognized."
+      puts "Sorry, that command is not recognized. Please try again"
     end
+  end
+  
+  def list_books
+    Book.all.each { |book| puts "#{book.num}. ".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}"}
+    puts "----------------------".colorize(:green)
+    puts "Please enter a " + "book number".colorize(:green) + " for further information on that book."
+    puts "Or enter " + "'exit'".colorize(:green) + " to exit."
+
+    get_input
+    find_book
+  end
+  
+  def get_input
+    @input = gets
   end
   
   def find_book
     list_length = Book.all.last.num.to_i
     
-    if @input < (list_length + 1) && @input > 0
+    if input < (list_length + 1) && input > 0
       
       book = Book.all.find { |book| book.num == @input }
       
@@ -56,8 +57,10 @@ class CLI
       puts "Or enter " + "'exit'".colorize(:green) + " to exit."
       
       get_input
+
+      end
       
-    elsif @input > (list_length + 1) || @input < 0
+    elsif input > (list_length + 1) || input < 0
       puts "That number is not recognized. Please pick a number " + "between 1 and #{list_length}".colorize(:green) + "."
       get_input
       find_book
