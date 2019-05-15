@@ -10,6 +10,19 @@ class CLI
     puts "To quit, enter" + " 'exit'".colorize(:green)
     puts 'What would you like to do?'
 
+    get_input
+  end
+  
+  def list_books
+    Book.all.each { |book| puts "#{book.num}. ".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}"}
+    puts "----------------------".colorize(:green)
+    puts "Please enter a " + "book number".colorize(:green) + " for further information on that book."
+    puts "Or enter " + "'exit'".colorize(:green) + " to exit."
+    
+    get_input
+  end
+  
+  def get_input
     @input = gets
 
     if @input == "list books\n"
@@ -25,38 +38,31 @@ class CLI
     end
   end
   
-  def list_books
-    Book.all.each { |book| puts "#{book.num}. ".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}"}
-    puts "----------------------".colorize(:green)
-    puts "Please enter a book number for further information on that book."
-    puts "Or enter 'exit' to exit."
-
-    get_input
-
-    if @input == "exit\n"
-      return puts "Thank you for using our app!"
-    else
-      @input = @input.to_i
-      find_book
-    end
-  end
-  
-  def get_input
-    @input = gets
-  end
-  
   def find_book
-    list_length = Book.all.last.num.to_i + 1
+    list_length = Book.all.last.num.to_i
     
-    if input < list_length && input > 0
+    if @input < (list_length + 1) && @input > 0
+      
       book = Book.all.find { |book| book.num == @input }
-      puts "#{book.num}. ".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}"
-    elsif input > list_length || input < 0
-      puts "That number is not recognized. Please pick a number between 1 and #{list_length - 1}."
+      
+      puts "#{book.num}. ".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}\n"
+      puts "----------------------\n".colorize(:green)
+      puts "#{book.rating}".colorize(:yellow)
+      puts "#{book.list_ranking}\n".colorize(:red)
+      puts "----------------------\n".colorize(:green)
+      puts "#{book.description}\n"
+      puts "----------------------\n".colorize(:green)
+      puts "To view the list again, please enter " + " 'list books'".colorize(:green)
+      puts "Or enter " + "'exit'".colorize(:green) + " to exit."
+      
+      get_input
+      
+    elsif @input > (list_length + 1) || @input < 0
+      puts "That number is not recognized. Please pick a number " + "between 1 and #{list_length}".colorize(:green) + "."
       get_input
       find_book
     else
-      puts "Please enter numbers only."
+      puts "Please enter " + "numbers between 1 and #{list_length}".colorize(:green) + " only."
       get_input
       find_book
     end
