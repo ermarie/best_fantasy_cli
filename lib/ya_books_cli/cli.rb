@@ -41,7 +41,8 @@ class CLI
   
   def find_book
     list_length = Book.all.last.num.to_i
-    
+    input = @input.to_i
+    binding.pry
     if input < (list_length + 1) && input > 0
       
       book = Book.all.find { |book| book.num == @input }
@@ -58,7 +59,6 @@ class CLI
       
       get_input
 
-      end
       
     elsif input > (list_length + 1) || input < 0
       puts "That number is not recognized. Please pick a number " + "between 1 and #{list_length}".colorize(:green) + "."
