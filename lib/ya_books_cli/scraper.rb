@@ -1,4 +1,4 @@
-class Scraper
+ class Scraper
   
   def self.scrape_page
 
@@ -39,7 +39,12 @@ class Scraper
 
     book.rating = doc.css("div.item_rating").text
     book.list_ranking = doc.css("div.item_series").text
-    book.description = doc.css("div.item_description").text
+    book.votes = doc.css("div.item_voters_icon").text
+    if doc.css("div.item_description").text != "\n"
+      book.description = doc.css("div.item_description").text
+    else
+      book.description = "No description available."
+    end
 
     also_liked_array = []
     doc.css("div.also_liked_book").each do |also_liked_book|
