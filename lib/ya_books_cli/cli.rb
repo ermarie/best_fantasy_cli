@@ -3,10 +3,10 @@ class CLI
   attr_reader :input
   
   def run 
-    puts "Welcome to the Best Young Adult Fantasy Books!"
+    puts "Welcome to the Best Young Adult Fantasy Books!".colorize(:blue)
     puts "To view the list of the Best Young Adult Fantasy Books enter" + " 'list books'".colorize(:green)
     puts "To quit, enter" + " 'exit'".colorize(:green)
-    puts 'What would you like to do?'
+    puts 'What would you like to do?'.colorize(:yellow)
 
     get_input
     input_reply
@@ -35,6 +35,12 @@ class CLI
       list_books
     elsif @input == "exit\n"
       puts "Thank you for joining us!"
+    elsif @input == "also liked books\n"
+    binding.pry
+      @also_liked_books.each_with_index do |liked_book|
+        binding.pry
+        puts "#{index + 1}.".colorize(:red) + "#{liked_book.name} ".colorize(:blue) + "by #{liked_book.author}"
+      end
     else
       puts "Sorry, that command is not recognized. Please try again."
       get_input
@@ -56,11 +62,12 @@ class CLI
       puts "\n#{book.num}. ".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}"
       puts "\n----------------------".colorize(:green)
       puts "\n#{book.rating}".colorize(:yellow)
-      puts "#{book.list_ranking}".colorize(:red)
-      puts "#{book.votes}".colorize(:purple)
+      puts "#{book.list_ranking}".colorize(:light_red)
+      puts "#{book.votes}".colorize(:light_blue)
       puts "\n----------------------".colorize(:green)
       puts "\n#{book.description}"
       puts "\n----------------------".colorize(:green)
+      puts "\nTo view books other readers also liked, please enter " + "'also like books'".colorize(:green) + "."
       puts "\nTo view the list again, please enter " + " 'list books'".colorize(:green)
       puts "Or enter " + "'exit'".colorize(:green) + " to exit."
       

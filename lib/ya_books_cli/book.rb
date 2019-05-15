@@ -2,7 +2,7 @@ class Book
   
   @@all = []
   
-  attr_accessor :description, :rating, :list_ranking, :votes
+  attr_accessor :description, :rating, :list_ranking, :votes, :also_liked_books
   attr_reader :num, :name, :author, :link
   
   def initialize(book_hash)

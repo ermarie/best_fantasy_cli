@@ -57,6 +57,7 @@
        
       also_liked_array << liked_book
     end
+    book.also_liked_books = also_liked_array
   end
 
 end
