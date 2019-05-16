@@ -13,12 +13,12 @@ class Book
     @@all << self 
   end
   
-  def find_or_create(also_liked_book)
-    if Book.all.include? also_liked_book.name
-      Book.all.find { |book| book.name == also_liked_book.name }
+  def self.find_or_create(also_liked_book)
+    if Book.all.include? also_liked_book[:name]
+      Book.all.find { |book| book.name == also_liked_book[:name] }
     else
-      also_liked_book[:best] = false
-      Book.new(also_liked_book)
+      new_book = Book.new(also_liked_book)
+      new_book.best = false 
     end
   end
   

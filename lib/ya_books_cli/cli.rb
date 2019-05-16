@@ -22,11 +22,14 @@ class CLI
     find_book
   end
   
-  def book_menu
+  def book_menu(book=nil)
     puts "\n----------------------".colorize(:green)
     puts "\nTo view books other readers also liked, please enter " + "'list books'".colorize(:green) + "."
     puts "\nTo return to the main main_menu, please enter " + " 'main menu'".colorize(:green)
     puts "Or enter " + "'exit'".colorize(:green) + " to exit."
+    
+    get_input
+    input_reply(book)
   end
   
   def also_liked_menu
@@ -35,13 +38,22 @@ class CLI
     puts "\nTo return to the book information, enter " + "'book info'".colorize(:green) + "."
     puts "\nTo return to the main main_menu, please enter " + " 'main menu'".colorize(:green)
     puts "Or enter " + "'exit'".colorize(:green) + " to exit."
+    
+    get_input
+    input_reply
   end
   
   def list_books(book=nil)
     if book == nil
-      Book.all.each { |book| puts "#{book.num}. ".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}"}
+      Book.all.each do |book| 
+        if book.num != nil
+          puts "#{book.num}. ".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}"
+        end
+      end
+      list_menu
     elsif book.is_a? Array
       book.also_liked_books.each_with_index { |book| puts "#{index}. ".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}"}
+      also_liked_menu
     else
       number = "#{book.num}. "
       puts "\n#{number}".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}"
@@ -51,6 +63,8 @@ class CLI
       puts "#{book.votes}".colorize(:light_blue)
       puts "\n----------------------".colorize(:green)
       puts "\n#{book.description}"
+      
+      book_menu(book)
     end
   end
   
