@@ -102,7 +102,7 @@ class CLI
       end
       list_books(book)
     elsif @input.to_i > 0
-      find_book
+      find_book(book)
     else
       puts "Sorry, that command is not recognized. Please try again."
       get_input
@@ -115,11 +115,13 @@ class CLI
 
     if input < @total && input > 0
 
-      new_book = Book.all.find { |book| book.num == input }
-      if new_book == nil
-        new_book = book
-      elsif new_book.rating == nil 
-        Scraper.scrape_book_page(new_book)
+      if book != nil
+        new_book = Scraper.scrape_book_page(book)
+      else 
+        new_book = Book.all.find { |book| book.num == input }
+        if new_book.rating == nil 
+          Scraper.scrape_book_page(new_book)
+        end
       end
       
       list_books(new_book)
