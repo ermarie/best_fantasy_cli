@@ -53,8 +53,11 @@ class CLI
       end
       list_menu
     elsif book.is_a? Array
-    binding.pry
-      book.each_with_index { |book| puts "#{index}. ".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}"}
+      order = 0
+      book.each do |liked_book| 
+        order += 1
+        puts "#{order}. ".colorize(:red) + "#{liked_book.name} ".colorize(:blue) + "by #{liked_book.author}"
+      end
       also_liked_menu
     else
       number = "#{book.num}. "
