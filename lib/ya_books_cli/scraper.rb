@@ -52,7 +52,7 @@
       liked_book = {
         :name => also_liked_book.css("div.also_liked_text").css("a").text,
         :author => also_liked_book.css("div.also_liked_author").text,
-        :link => "http://bestfantasybooks.com/lists/list/item/#{also_liked_book.css("a").attribute('href').value}"
+        :link => "http://bestfantasybooks.com/lists/list/item/#{also_liked_book.css("a").attribute('href').value}",
       }
        
       also_liked_array << liked_book
