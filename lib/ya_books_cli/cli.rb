@@ -15,6 +15,36 @@ class CLI
     puts "----------------------".colorize(:green)
   end
   
+  def get_input
+    @input = gets
+  end
+  
+  def input_reply(book=nil)
+
+    if @input == "exit\n"
+      puts "-\n-\n-\n".colorize(:green) + "Thank you".colorize(:red) + " for ".colorize(:blue) + "joining us!".colorize(:yellow)
+      puts "\n----------------------".colorize(:green)
+    elsif @input == "main menu\n"
+      main_menu
+      get_input
+      input_reply
+    # elsif @input == "book info\n"
+    elsif @input == "list books\n"
+      if Book.all == []
+        puts "Loading...".colorize(:red) + "this may take a few moments.".colorize(:light_blue)
+        Scraper.scrape_page
+        @total = Book.all.length
+      end
+      list_books(book)
+    elsif @input.to_i != 0
+      find_book(book)
+    else
+      puts "Sorry, that command is not recognized. Please try again."
+      get_input
+      input_reply(book)
+    end
+  end
+  
   def list_menu
     puts "----------------------".colorize(:green)
     puts "Please enter a " + "book number".colorize(:green) + " for further information on that book."
@@ -87,38 +117,8 @@ class CLI
       puts "#{book.votes}".colorize(:light_blue)
       puts "\n----------------------".colorize(:green)
       puts "\n#{book.description}"
-      
-      book_menu(book)
-    end
-  end
-  
-  def get_input
-    @input = gets
-  end
-  
-  def input_reply(book=nil)
 
-    if @input == "exit\n"
-      puts "-\n-\n-\n".colorize(:green) + "Thank you".colorize(:red) + " for ".colorize(:blue) + "joining us!".colorize(:yellow)
-      puts "\n----------------------".colorize(:green)
-    elsif @input == "main menu\n"
-      main_menu
-      get_input
-      input_reply
-    # elsif @input == "book info\n"
-    elsif @input == "list books\n"
-      if Book.all == []
-        puts "Loading...".colorize(:red) + "this may take a few moments.".colorize(:light_blue)
-        Scraper.scrape_page
-        @total = Book.all.length
-      end
-      list_books(book)
-    elsif @input.to_i != 0
-      find_book(book)
-    else
-      puts "Sorry, that command is not recognized. Please try again."
-      get_input
-      input_reply(book)
+      book_menu(book)
     end
   end
   
@@ -141,7 +141,6 @@ class CLI
       end
 
       list_books(new_book)
-      book_menu(new_book)
       
     elsif input > @total || input < 0
       puts "That number is not recognized. Please pick a number " + "between 1 and #{@total}".colorize(:green) + "."
