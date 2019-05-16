@@ -71,7 +71,6 @@ class CLI
     elsif @input == "also liked books\n"
       book.also_liked_books.each.with_index(1) { |liked_book| puts "#{index}.".colorize(:red) + "#{liked_book.name} ".colorize(:blue) + "by #{liked_book.author}" }
       also_liked_menu
-      end
     else
       puts "Sorry, that command is not recognized. Please try again."
       get_input

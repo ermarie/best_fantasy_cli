@@ -15,7 +15,7 @@ class Book
   
   def find_or_create(also_liked_book)
     if Book.all.include? also_liked_book.name
-      Book.all.find { |book| book.name == also_liked_book.name
+      Book.all.find { |book| book.name == also_liked_book.name }
     else
       Book.new(also_liked_book)
     end
