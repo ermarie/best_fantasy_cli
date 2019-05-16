@@ -44,7 +44,6 @@ class CLI
     
     input = @input.gsub("\n","").to_i
     if input > 0
-      binding.pry
       input_reply(also_liked_array[(input - 1)])
     else
       input_reply
@@ -69,8 +68,12 @@ class CLI
 
       also_liked_menu(book)
     else
-      binding.pry
-      number = "#{book.num}. "
+      if book.num != nil
+        number = "#{book.num}. "
+      else
+        number = ""
+      end
+      
       puts "\n#{number}".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}"
       puts "\n----------------------".colorize(:green)
       puts "\n#{book.rating}".colorize(:yellow)
@@ -88,15 +91,16 @@ class CLI
   end
   
   def input_reply(book=nil)
-    if @input == "list books\n"
+    binding.pry
+    if @input == "exit\n"
+      puts "Thank you for joining us!"
+    elsif @input == "list books\n"
       if Book.all == []
         puts "Loading...".colorize(:red) + "this may take a few moments.".colorize(:light_blue)
         Scraper.scrape_page
         @total = Book.all.length
       end
       list_books(book)
-    elsif @input == "exit\n"
-      puts "Thank you for joining us!"
     elsif @input.to_i > 0
       find_book
     else
@@ -109,17 +113,17 @@ class CLI
   def find_book
     input = @input.to_i
 
-    if input < (@total) && input > 0
+    if input < @total && input > 0
       
       book = Book.all.find { |book| book.num == input }
-      if book.rating == nil
+      if book.rating == nil 
         Scraper.scrape_book_page(book)
       end
       
       list_books(book)
       book_menu(book)
       
-    elsif input > (@total) || input < 0
+    elsif input > @total || input < 0
       puts "That number is not recognized. Please pick a number " + "between 1 and #{@total}".colorize(:green) + "."
       get_input
       find_book
@@ -131,10 +135,5 @@ class CLI
       find_book
     end
   end
-  
-  def print_book
-    
-  end
-  
   
 end
