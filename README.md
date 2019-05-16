@@ -2,6 +2,8 @@
 
 The following Ruby program lists the Best Fantasy Books for Women! It allows the user to pick a book from the list to view more information about the book. They may then view a list of books that other readers also liked after reading the chosen book. The user may then get more information on the also liked book of their choice, and more also liked books of the chosen also liked book.
 
+The data for this program is scraped from the following webpage: http://bestfantasybooks.com/lists/list/Crowd/Best-Fantasy-Books-for-Women
+
 # Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/ermarie/best_fantasy_cli
