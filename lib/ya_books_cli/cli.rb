@@ -33,15 +33,21 @@ class CLI
     input_reply(also_liked)
   end
   
-  def also_liked_menu
+  def also_liked_menu(also_liked_array)
     puts "\n----------------------".colorize(:green)
-    puts "\nTo view information about one of the also liked books, enter " + "'list books'".colorize(:green) + "."
+    puts "\nTo view information about one of the also liked books, enter the " + "'number'".colorize(:green) + "."
     puts "\nTo return to the book information, enter " + "'book info'".colorize(:green) + "."
     puts "\nTo return to the main main_menu, please enter " + " 'main menu'".colorize(:green)
     puts "Or enter " + "'exit'".colorize(:green) + " to exit."
     
     get_input
-    input_reply
+          binding.pry
+    input = @input.gsub("\n","").to_a
+    if input > 0
+      input_reply(also_liked_array[input])
+    else
+      input_reply
+    end
   end
   
   def list_books(book=nil)
@@ -54,11 +60,13 @@ class CLI
       list_menu
     elsif book.is_a? Array
       order = 0
+      
       book.each do |liked_book| 
         order += 1
         puts "#{order}. ".colorize(:red) + "#{liked_book.name} ".colorize(:blue) + "by #{liked_book.author}"
       end
-      also_liked_menu
+
+      also_liked_menu(book)
     else
       number = "#{book.num}. "
       puts "\n#{number}".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}"
@@ -87,9 +95,6 @@ class CLI
       list_books(book)
     elsif @input == "exit\n"
       puts "Thank you for joining us!"
-    elsif @input == "also liked books\n"
-      book.also_liked_books.each.with_index(1) { |liked_book| puts "#{index}.".colorize(:red) + "#{liked_book.name} ".colorize(:blue) + "by #{liked_book.author}" }
-      also_liked_menu
     elsif @input.to_i > 0
       find_book
     else
