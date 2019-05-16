@@ -91,7 +91,7 @@ class CLI
   end
   
   def input_reply(book=nil)
-    binding.pry
+
     if @input == "exit\n"
       puts "Thank you for joining us!"
     elsif @input == "list books\n"
@@ -110,18 +110,20 @@ class CLI
     end
   end
   
-  def find_book
+  def find_book(book=nil)
     input = @input.to_i
 
     if input < @total && input > 0
-      
-      book = Book.all.find { |book| book.num == input }
-      if book.rating == nil 
-        Scraper.scrape_book_page(book)
+
+      new_book = Book.all.find { |book| book.num == input }
+      if new_book == nil
+        new_book = book
+      elsif new_book.rating == nil 
+        Scraper.scrape_book_page(new_book)
       end
       
-      list_books(book)
-      book_menu(book)
+      list_books(new_book)
+      book_menu(new_book)
       
     elsif input > @total || input < 0
       puts "That number is not recognized. Please pick a number " + "between 1 and #{@total}".colorize(:green) + "."
