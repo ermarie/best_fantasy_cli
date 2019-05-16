@@ -41,10 +41,11 @@ class CLI
     puts "Or enter " + "'exit'".colorize(:green) + " to exit."
     
     get_input
-          binding.pry
-    input = @input.gsub("\n","").to_a
+    
+    input = @input.gsub("\n","").to_i
     if input > 0
-      input_reply(also_liked_array[input])
+      binding.pry
+      input_reply(also_liked_array[(input - 1)])
     else
       input_reply
     end
@@ -68,6 +69,7 @@ class CLI
 
       also_liked_menu(book)
     else
+      binding.pry
       number = "#{book.num}. "
       puts "\n#{number}".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}"
       puts "\n----------------------".colorize(:green)
