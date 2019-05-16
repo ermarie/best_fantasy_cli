@@ -6,12 +6,12 @@
 
     self.get_attributes_and_create(doc)
     
-    page = 1 
-    5.times do
-      page += 1
-      doc = Nokogiri::HTML(open("http://bestfantasybooks.com/lists/list/Crowd/Best-Fantasy-Books-for-Women/page-#{page}"))
-      get_attributes_and_create(doc)
-    end
+    # page = 1 
+    # 5.times do
+    #   page += 1
+    #   doc = Nokogiri::HTML(open("http://bestfantasybooks.com/lists/list/Crowd/Best-Fantasy-Books-for-Women/page-#{page}"))
+    #   get_attributes_and_create(doc)
+    # end
   end
   
   def self.get_attributes_and_create(doc)
@@ -36,7 +36,7 @@
   
   def self.scrape_book_page(book)
     doc = Nokogiri::HTML(open(book.link))
-
+binding.pry
     book.rating = doc.css("div.item_rating").text.gsub("\n","")
     book.list_ranking = doc.css("div.item_series").text.gsub("\n","")
     book.votes = doc.css("span.item_voters_icon").text
