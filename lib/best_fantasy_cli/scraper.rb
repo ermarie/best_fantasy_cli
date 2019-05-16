@@ -6,12 +6,12 @@
 
     self.get_attributes_and_create(doc)
     
-    # page = 1 
-    # 5.times do
-    #   page += 1
-    #   doc = Nokogiri::HTML(open("http://bestfantasybooks.com/lists/list/Crowd/Best-Fantasy-Books-for-Women/page-#{page}"))
-    #   get_attributes_and_create(doc)
-    # end
+    page = 1 
+    5.times do
+      page += 1
+      doc = Nokogiri::HTML(open("http://bestfantasybooks.com/lists/list/Crowd/Best-Fantasy-Books-for-Women/page-#{page}"))
+      get_attributes_and_create(doc)
+    end
   end
   
   def self.get_attributes_and_create(doc)
