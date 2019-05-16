@@ -23,14 +23,18 @@ class CLI
   end
   
   def book_menu
-      puts "\n----------------------".colorize(:green)
-      puts "\nTo view books other readers also liked, please enter " + "'list books'".colorize(:green) + "."
-      puts "\nTo return to the main main_menu, please enter " + " 'return'".colorize(:green)
-      puts "Or enter " + "'exit'".colorize(:green) + " to exit."
+    puts "\n----------------------".colorize(:green)
+    puts "\nTo view books other readers also liked, please enter " + "'list books'".colorize(:green) + "."
+    puts "\nTo return to the main main_menu, please enter " + " 'main menu'".colorize(:green)
+    puts "Or enter " + "'exit'".colorize(:green) + " to exit."
   end
   
   def also_liked_menu
-    
+    puts "\n----------------------".colorize(:green)
+    puts "\nTo view information about one of the also liked books, enter " + "'list books'".colorize(:green) + "."
+    puts "\nTo return to the book information, enter " + "'book info'".colorize(:green) + "."
+    puts "\nTo return to the main main_menu, please enter " + " 'main menu'".colorize(:green)
+    puts "Or enter " + "'exit'".colorize(:green) + " to exit."
   end
   
   def list_books(book=nil)
@@ -65,10 +69,8 @@ class CLI
     elsif @input == "exit\n"
       puts "Thank you for joining us!"
     elsif @input == "also liked books\n"
-    binding.pry
-      book.also_liked_books.each_with_index do |liked_book|
-        binding.pry
-        puts "#{index + 1}.".colorize(:red) + "#{liked_book.name} ".colorize(:blue) + "by #{liked_book.author}"
+      book.also_liked_books.each.with_index(1) { |liked_book| puts "#{index}.".colorize(:red) + "#{liked_book.name} ".colorize(:blue) + "by #{liked_book.author}" }
+      also_liked_menu
       end
     else
       puts "Sorry, that command is not recognized. Please try again."
