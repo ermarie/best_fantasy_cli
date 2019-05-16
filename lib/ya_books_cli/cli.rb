@@ -19,7 +19,7 @@ class CLI
     puts "Or enter " + "'exit'".colorize(:green) + " to exit."
 
     get_input
-    find_book
+    input_reply
   end
   
   def book_menu(book=nil)
@@ -27,7 +27,7 @@ class CLI
     puts "\nTo view books other readers also liked, please enter " + "'list books'".colorize(:green) + "."
     puts "\nTo return to the main main_menu, please enter " + " 'main menu'".colorize(:green)
     puts "Or enter " + "'exit'".colorize(:green) + " to exit."
-    
+
     get_input
     input_reply(book)
   end
@@ -79,12 +79,14 @@ class CLI
         Scraper.scrape_page
         @total = Book.all.length
       end
-      list_books
+      list_books(book)
     elsif @input == "exit\n"
       puts "Thank you for joining us!"
     elsif @input == "also liked books\n"
       book.also_liked_books.each.with_index(1) { |liked_book| puts "#{index}.".colorize(:red) + "#{liked_book.name} ".colorize(:blue) + "by #{liked_book.author}" }
       also_liked_menu
+    elsif @input.to_i > 0
+      find_book
     else
       puts "Sorry, that command is not recognized. Please try again."
       get_input

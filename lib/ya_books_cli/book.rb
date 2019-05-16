@@ -19,6 +19,7 @@ class Book
     else
       new_book = Book.new(also_liked_book)
       new_book.best = false 
+      new_book
     end
   end
   
