@@ -8,8 +8,8 @@ class CLI
   end
   
   def main_menu
-    puts "\n\nWelcome to the Best Young Adult Fantasy Books!".colorize(:blue)
-    puts "To view the list of the Best Young Adult Fantasy Books enter" + " 'list books'".colorize(:green)
+    puts "\n\nWelcome to the Best Fantasy Books for Women!".colorize(:blue)
+    puts "To view the list enter" + " 'list books'".colorize(:green)
     puts "To quit, enter" + " 'exit'".colorize(:green)
     puts "What would you like to do?\n".colorize(:yellow)
     puts "----------------------".colorize(:green)
