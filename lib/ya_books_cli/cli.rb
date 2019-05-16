@@ -8,16 +8,18 @@ class CLI
   end
   
   def main_menu
-    puts "Welcome to the Best Young Adult Fantasy Books!".colorize(:blue)
+    puts "\n\nWelcome to the Best Young Adult Fantasy Books!".colorize(:blue)
     puts "To view the list of the Best Young Adult Fantasy Books enter" + " 'list books'".colorize(:green)
     puts "To quit, enter" + " 'exit'".colorize(:green)
-    puts 'What would you like to do?'.colorize(:yellow)
+    puts "What would you like to do?\n".colorize(:yellow)
+    puts "----------------------".colorize(:green)
   end
   
   def list_menu
     puts "----------------------".colorize(:green)
     puts "Please enter a " + "book number".colorize(:green) + " for further information on that book."
     puts "Or enter " + "'exit'".colorize(:green) + " to exit."
+    puts "\n----------------------".colorize(:green)
 
     get_input
     input_reply
@@ -28,6 +30,7 @@ class CLI
     puts "\nTo view books other readers also liked, please enter " + "'list books'".colorize(:green) + "."
     puts "To return to the main main_menu, please enter " + " 'main menu'".colorize(:green)
     puts "Or enter " + "'exit'".colorize(:green) + " to exit."
+    puts "----------------------".colorize(:green)
 
     get_input
 
@@ -38,9 +41,10 @@ class CLI
   def also_liked_menu(also_liked_array)
     puts "\n----------------------".colorize(:green)
     puts "\nTo view information about one of the also liked books, enter the " + "'book number'".colorize(:green) + "."
-    puts "\nTo return to the book information, enter " + "'book info'".colorize(:green) + "."
-    puts "\nTo return to the main main_menu, please enter " + " 'main menu'".colorize(:green)
+   # puts "\nTo return to the book information, enter " + "'book info'".colorize(:green) + "."
+    puts "To return to the main main_menu, please enter " + " 'main menu'".colorize(:green)
     puts "Or enter " + "'exit'".colorize(:green) + " to exit."
+    puts "\n----------------------".colorize(:green)
     
     get_input
     
@@ -95,7 +99,13 @@ class CLI
   def input_reply(book=nil)
 
     if @input == "exit\n"
-      puts "Thank you for joining us!"
+      puts "-\n-\n-\n".colorize(:green) + "Thank you".colorize(:red) + " for ".colorize(:blue) + "joining us!".colorize(:yellow)
+      puts "\n----------------------".colorize(:green)
+    elsif @input == "main menu\n"
+      main_menu
+      get_input
+      input_reply
+    # elsif @input == "book info\n"
     elsif @input == "list books\n"
       if Book.all == []
         puts "Loading...".colorize(:red) + "this may take a few moments.".colorize(:light_blue)
@@ -103,7 +113,7 @@ class CLI
         @total = Book.all.length
       end
       list_books(book)
-    elsif @input.to_i > 0
+    elsif @input.to_i != 0
       find_book(book)
     else
       puts "Sorry, that command is not recognized. Please try again."
