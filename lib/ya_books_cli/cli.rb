@@ -1,3 +1,4 @@
+
 class CLI 
   
   def run 
@@ -25,7 +26,7 @@ class CLI
   def book_menu(book=nil)
     puts "\n----------------------".colorize(:green)
     puts "\nTo view books other readers also liked, please enter " + "'list books'".colorize(:green) + "."
-    puts "\nTo return to the main main_menu, please enter " + " 'main menu'".colorize(:green)
+    puts "To return to the main main_menu, please enter " + " 'main menu'".colorize(:green)
     puts "Or enter " + "'exit'".colorize(:green) + " to exit."
 
     get_input
@@ -74,7 +75,7 @@ class CLI
       else
         number = ""
       end
-      
+
       puts "\n#{number}".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}"
       puts "\n----------------------".colorize(:green)
       puts "\n#{book.rating}".colorize(:yellow)
@@ -103,12 +104,11 @@ class CLI
       end
       list_books(book)
     elsif @input.to_i > 0
-    binding.pry
       find_book(book)
     else
       puts "Sorry, that command is not recognized. Please try again."
       get_input
-      input_reply
+      input_reply(book)
     end
   end
   
@@ -116,7 +116,7 @@ class CLI
     input = @input.to_i
 
     if input < @total && input > 0
-binding.pry
+
       if book != nil
         new_book = Scraper.scrape_book_page(book)
       else 

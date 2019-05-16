@@ -36,7 +36,7 @@
   
   def self.scrape_book_page(book)
     doc = Nokogiri::HTML(open(book.link))
-binding.pry
+
     book.rating = doc.css("div.item_rating").text.gsub("\n","")
     book.list_ranking = doc.css("div.item_series").text.gsub("\n","")
     book.votes = doc.css("span.item_voters_icon").text
@@ -60,6 +60,7 @@ binding.pry
       also_liked_array << Book.find_or_create(liked_book)
     end
     book.also_liked_books = also_liked_array
+    book
   end
 
 end
