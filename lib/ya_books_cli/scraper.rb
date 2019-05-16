@@ -23,7 +23,8 @@
     :num => book.css("div.col-sm-3").text.to_i,
     :name => book.css("h2").css("a").text,
     :author => book.css("h3").first.css("a").text,
-    :link => "http://bestfantasybooks.com#{book.css("h2").css("a").attribute('href').value}"
+    :link => "http://bestfantasybooks.com#{book.css("h2").css("a").attribute('href').value}",
+    :best => true
     }
     
     book_array << book
@@ -52,10 +53,12 @@
       liked_book = {
         :name => also_liked_book.css("div.also_liked_text").css("a").text,
         :author => also_liked_book.css("div.also_liked_author").text,
-        :link => "http://bestfantasybooks.com/lists/list/item/#{also_liked_book.css("a").attribute('href').value}",
+        :link => "http://bestfantasybooks.com/lists/list/item/#{also_liked_book.css("a").attribute('href').value}"
       }
+      
+      
        
-      also_liked_array << liked_book
+      also_liked_array << 
     end
     book.also_liked_books = also_liked_array
   end

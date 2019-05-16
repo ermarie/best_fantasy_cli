@@ -17,13 +17,15 @@ class Book
     if Book.all.include? also_liked_book.name
       Book.all.find { |book| book.name == also_liked_book.name }
     else
+      also_liked_book[:best] = false
       Book.new(also_liked_book)
     end
   end
   
   def self.create_from_collection(book_array)
     book_array.each do |book| 
-      Book.new(book) 
+      Book.new(book)
+      
     end
   end
   
