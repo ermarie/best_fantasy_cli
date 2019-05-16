@@ -29,7 +29,8 @@ class CLI
     puts "Or enter " + "'exit'".colorize(:green) + " to exit."
 
     get_input
-    input_reply(book)
+    also_liked = book.also_liked_books
+    input_reply(also_liked)
   end
   
   def also_liked_menu
@@ -52,7 +53,8 @@ class CLI
       end
       list_menu
     elsif book.is_a? Array
-      book.also_liked_books.each_with_index { |book| puts "#{index}. ".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}"}
+    binding.pry
+      book.each_with_index { |book| puts "#{index}. ".colorize(:red) + "#{book.name} ".colorize(:blue) + "by #{book.author}"}
       also_liked_menu
     else
       number = "#{book.num}. "
@@ -105,9 +107,7 @@ class CLI
       end
       
       list_books(book)
-      book_menu
-      get_input
-      input_reply(book)
+      book_menu(book)
       
     elsif input > (@total) || input < 0
       puts "That number is not recognized. Please pick a number " + "between 1 and #{@total}".colorize(:green) + "."

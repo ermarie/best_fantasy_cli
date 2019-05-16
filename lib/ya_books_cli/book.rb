@@ -2,7 +2,7 @@ class Book
   
   @@all = []
   
-  attr_accessor :description, :rating, :list_ranking, :votes, :also_liked_books, :best
+  attr_accessor :description, :rating, :list_ranking, :votes, :also_liked_books
   attr_reader :num, :name, :author, :link
   
   def initialize(book_hash)
@@ -17,17 +17,12 @@ class Book
     if Book.all.include? also_liked_book[:name]
       Book.all.find { |book| book.name == also_liked_book[:name] }
     else
-      new_book = Book.new(also_liked_book)
-      new_book.best = false 
-      new_book
+      Book.new(also_liked_book)
     end
   end
   
   def self.create_from_collection(book_array)
-    book_array.each do |book| 
-      Book.new(book)
-      
-    end
+    book_array.each { |book| Book.new(book) }
   end
   
   def self.all 
