@@ -5,6 +5,7 @@ class Book
   attr_accessor :description, :rating, :list_ranking, :votes, :also_liked_books, :best
   attr_reader :num, :name, :author, :link
   
+#book object initializes with num, name, author & link attributes - added to class' all array
   def initialize(book_hash)
     @num = book_hash[:num]
     @name = book_hash[:name]
@@ -13,6 +14,7 @@ class Book
     @@all << self 
   end
   
+#method used to find or create individual book objects - from the also liked books list
   def self.find_or_create(also_liked_book)
     if Book.all.include? also_liked_book[:name]
       Book.all.find { |book| book.name == also_liked_book[:name] }
@@ -21,6 +23,7 @@ class Book
     end
   end
   
+#method used to create book objects from the initial pages scraped
   def self.create_from_collection(book_array)
     book_array.each { |book| Book.new(book) }
   end

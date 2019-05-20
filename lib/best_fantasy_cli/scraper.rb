@@ -1,5 +1,6 @@
  class Scraper
   
+#scraping initial pages displaying full list of Best Fantasy Books for Women
   def self.scrape_page
 
     doc = Nokogiri::HTML(open("http://bestfantasybooks.com/lists/list/Crowd/Best-Fantasy-Books-for-Women"))
@@ -14,6 +15,7 @@
     end
   end
   
+#gets attributes for each individual book of list, add to an array for creating book objects from the full collection
   def self.get_attributes_and_create(doc)
     book_array = []
         
@@ -34,6 +36,7 @@
     
   end
   
+#scraping individual book pages to get further information on the book to display
   def self.scrape_book_page(book)
     doc = Nokogiri::HTML(open(book.link))
 

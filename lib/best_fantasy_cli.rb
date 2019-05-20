@@ -9,7 +9,6 @@ require_relative "./ya_books_cli/book"
 require_relative "./ya_books_cli/scraper"
 
 
-module YaBooksCli
+module BestFantasyCli
   class Error < StandardError; end
-  # Your code goes here...
 end

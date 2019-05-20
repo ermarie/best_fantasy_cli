@@ -1,12 +1,16 @@
 
 class CLI 
   
+#run at beginning of program
   def run 
     main_menu
     get_input
     input_reply
   end
   
+## section of menus for the CLI
+
+#initial menu 
   def main_menu
     puts "\n\nWelcome to the Best Fantasy Books for Women!".colorize(:blue)
     puts "To view the list enter" + " 'list books'".colorize(:green)
@@ -15,10 +19,56 @@ class CLI
     puts "----------------------".colorize(:green)
   end
   
+#menu after a list of books are displayed
+  def list_menu
+    puts "----------------------".colorize(:green)
+    puts "Please enter a " + "book number".colorize(:green) + " for further information on that book."
+    puts "Or enter " + "'exit'".colorize(:green) + " to exit."
+    puts "\n----------------------".colorize(:green)
+
+    get_input
+    input_reply
+  end
+  
+#menu after the full information about a book is displayed
+  def book_menu(book=nil)
+    puts "\n----------------------".colorize(:green)
+    puts "\nTo view books other readers also liked, please enter " + "'list books'".colorize(:green) + "."
+    puts "To return to the main main_menu, please enter " + " 'main menu'".colorize(:green)
+    puts "Or enter " + "'exit'".colorize(:green) + " to exit."
+    puts "----------------------".colorize(:green)
+
+    get_input
+
+    also_liked = book.also_liked_books
+    input_reply(also_liked)
+  end
+  
+#menu displayed after the list of also liked books is displayed
+  def also_liked_menu(also_liked_array)
+    puts "\n----------------------".colorize(:green)
+    puts "\nTo view information about one of the also liked books, enter the " + "'book number'".colorize(:green) + "."
+   # puts "\nTo return to the book information, enter " + "'book info'".colorize(:green) + "."
+    puts "To return to the main main_menu, please enter " + " 'main menu'".colorize(:green)
+    puts "Or enter " + "'exit'".colorize(:green) + " to exit."
+    puts "\n----------------------".colorize(:green)
+    
+    get_input
+    
+    input = @input.to_i
+    if input > 0
+      input_reply(also_liked_array[(input - 1)])
+    else
+      input_reply
+    end
+  end
+  
+#method for getting the user input
   def get_input
     @input = gets
   end
   
+#method for determining what to do with the user input
   def input_reply(book=nil)
 
     if @input == "exit\n"
@@ -44,48 +94,8 @@ class CLI
       input_reply(book)
     end
   end
-  
-  def list_menu
-    puts "----------------------".colorize(:green)
-    puts "Please enter a " + "book number".colorize(:green) + " for further information on that book."
-    puts "Or enter " + "'exit'".colorize(:green) + " to exit."
-    puts "\n----------------------".colorize(:green)
-
-    get_input
-    input_reply
-  end
-  
-  def book_menu(book=nil)
-    puts "\n----------------------".colorize(:green)
-    puts "\nTo view books other readers also liked, please enter " + "'list books'".colorize(:green) + "."
-    puts "To return to the main main_menu, please enter " + " 'main menu'".colorize(:green)
-    puts "Or enter " + "'exit'".colorize(:green) + " to exit."
-    puts "----------------------".colorize(:green)
-
-    get_input
-
-    also_liked = book.also_liked_books
-    input_reply(also_liked)
-  end
-  
-  def also_liked_menu(also_liked_array)
-    puts "\n----------------------".colorize(:green)
-    puts "\nTo view information about one of the also liked books, enter the " + "'book number'".colorize(:green) + "."
-   # puts "\nTo return to the book information, enter " + "'book info'".colorize(:green) + "."
-    puts "To return to the main main_menu, please enter " + " 'main menu'".colorize(:green)
-    puts "Or enter " + "'exit'".colorize(:green) + " to exit."
-    puts "\n----------------------".colorize(:green)
-    
-    get_input
-    
-    input = @input.to_i
-    if input > 0
-      input_reply(also_liked_array[(input - 1)])
-    else
-      input_reply
-    end
-  end
-  
+   
+#method used to display books, whether list of best books, also liked books, or book descriptions
   def list_books(book=nil)
     if book == nil
       Book.all.each do |book| 
@@ -122,6 +132,7 @@ class CLI
     end
   end
   
+#method used to find and scrape specific book information
   def find_book(book=nil)
     input = @input.to_i
 
