@@ -6,7 +6,7 @@ The data for this program is scraped from the following webpage: http://bestfant
 
 #Usage
 
-Change directory into best_fantasy_cli. Enter "ruby bin/run" to run the program.
+TO run this program, 'pry,' 'nokogiri,' and 'open-uri' need to be installed. Change directory into best_fantasy_cli. Enter "ruby bin/run" to run the program.
 
 # Contributing
 

@@ -70,7 +70,6 @@ class CLI
   
 #method for determining what to do with the user input
   def input_reply(book=nil)
-
     if @input == "exit"
       puts "-\n-\n-\n".colorize(:green) + "Thank you".colorize(:red) + " for ".colorize(:blue) + "joining us!".colorize(:yellow)
       puts "\n----------------------".colorize(:green)
@@ -85,7 +84,7 @@ class CLI
         @total = Book.all.length
       end
       list_books(book)
-    elsif @input.to_i != 0 && (book != nil || Book.all.count != 0)
+    elsif @input.to_i != 0 && (Book.all.count != 0 || (book != nil && (book.instance_of? Object == false)))
       find_book(book)
     else
       puts "Sorry, that command is not recognized. Please try again."
