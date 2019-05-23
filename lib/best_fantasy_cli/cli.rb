@@ -34,7 +34,7 @@ class CLI
   def book_menu(book=nil)
     puts "\n----------------------".colorize(:green)
     puts "\nTo view books other readers also liked, please enter " + "'list books'".colorize(:green) + "."
-    puts "To return to the main main_menu, please enter " + " 'main menu'".colorize(:green)
+    puts "To return to the main menu, please enter " + " 'main menu'".colorize(:green)
     puts "Or enter " + "'exit'".colorize(:green) + " to exit."
     puts "----------------------".colorize(:green)
 
@@ -49,7 +49,7 @@ class CLI
     puts "\n----------------------".colorize(:green)
     puts "\nTo view information about one of the also liked books, enter the " + "'book number'".colorize(:green) + "."
    # puts "\nTo return to the book information, enter " + "'book info'".colorize(:green) + "."
-    puts "To return to the main main_menu, please enter " + " 'main menu'".colorize(:green)
+    puts "To return to the main menu, please enter " + " 'main menu'".colorize(:green)
     puts "Or enter " + "'exit'".colorize(:green) + " to exit."
     puts "\n----------------------".colorize(:green)
     
@@ -84,7 +84,7 @@ class CLI
         @total = Book.all.length
       end
       list_books(book)
-    elsif @input.to_i != 0 && (Book.all.count != 0 || (book != nil && (book.instance_of? Object == false)))
+    elsif @input.to_i != 0 && book.is_a?(Array) == false && (book != nil || Book.all.count != 0)
       find_book(book)
     else
       puts "Sorry, that command is not recognized. Please try again."
@@ -140,15 +140,11 @@ class CLI
         new_book = Scraper.scrape_book_page(book)
       else 
           new_book = Book.all.find { |book| book.num == input }
-        # else
-        #   new_book = book
-        # end
-        
         if new_book.rating == nil 
           Scraper.scrape_book_page(new_book)
         end
       end
-
+      
       list_books(new_book)
       
     elsif input > @total || input < 0
