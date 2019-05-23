@@ -78,7 +78,6 @@ class CLI
       main_menu
       get_input
       input_reply
-    # elsif @input == "book info\n"
     elsif @input == "list books"
       if Book.all == []
         puts "Loading...".colorize(:red) + "this may take a few moments.".colorize(:light_blue)
@@ -86,7 +85,7 @@ class CLI
         @total = Book.all.length
       end
       list_books(book)
-    elsif @input.to_i != 0
+    elsif @input.to_i != 0 && (book != nil || Book.all.count != 0)
       find_book(book)
     else
       puts "Sorry, that command is not recognized. Please try again."
