@@ -16,10 +16,10 @@ class Book
   
 #method used to find or create individual book objects - from the also liked books list
   def self.find_or_create(also_liked_book)
-    if Book.all.include? also_liked_book[:name]
-      Book.all.find { |book| book.name == also_liked_book[:name] }
+    if self.all.include? also_liked_book[:name]
+      self.all.find { |book| book.name == also_liked_book[:name] }
     else
-      Book.new(also_liked_book)
+      self.new(also_liked_book)
     end
   end
   

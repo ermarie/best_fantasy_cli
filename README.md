@@ -5,6 +5,7 @@ The following Ruby program lists the Best Fantasy Books for Women! It allows the
 The data for this program is scraped from the following webpage: http://bestfantasybooks.com/lists/list/Crowd/Best-Fantasy-Books-for-Women
 
 #Usage
+
 Change directory into best_fantasy_cli. Enter "ruby bin/run" to run the program.
 
 # Contributing
