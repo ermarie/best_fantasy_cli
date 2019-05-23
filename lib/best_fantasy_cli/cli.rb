@@ -65,21 +65,21 @@ class CLI
   
 #method for getting the user input
   def get_input
-    @input = gets
+    @input = gets.strip.downcase
   end
   
 #method for determining what to do with the user input
   def input_reply(book=nil)
 
-    if @input == "exit\n"
+    if @input == "exit"
       puts "-\n-\n-\n".colorize(:green) + "Thank you".colorize(:red) + " for ".colorize(:blue) + "joining us!".colorize(:yellow)
       puts "\n----------------------".colorize(:green)
-    elsif @input == "main menu\n"
+    elsif @input == "main menu"
       main_menu
       get_input
       input_reply
     # elsif @input == "book info\n"
-    elsif @input == "list books\n"
+    elsif @input == "list books"
       if Book.all == []
         puts "Loading...".colorize(:red) + "this may take a few moments.".colorize(:light_blue)
         Scraper.scrape_page
