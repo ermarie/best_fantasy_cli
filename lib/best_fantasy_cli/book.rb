@@ -28,6 +28,7 @@ class Book
     book_array.each { |book| Book.new(book) }
   end
   
+  #display array of all instances of Book class
   def self.all 
     @@all 
   end
