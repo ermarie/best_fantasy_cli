@@ -149,37 +149,6 @@ class CLI
       also_liked_reply(book)
     end
   end
-  
-# #method for determining what to do with the user input
-#   def input_reply(book=nil)
-#     #code displayed upon exit
-#     if @input == "exit"
-#       puts "-\n-\n-\n".colorize(:green) + "Thank you".colorize(:red) + " for ".colorize(:blue) + "joining us!".colorize(:yellow)
-#       puts "\n----------------------".colorize(:green)
-#     #display main menu, receive input & act on input
-#     elsif @input == "main menu"
-#       main_menu
-#       get_input
-#       input_reply
-#     elsif @input == "list books"
-#       #scrape website for book list if it has not already been done
-#       if Book.all == []
-#         puts "Loading...".colorize(:red) + "this may take a few moments.".colorize(:light_blue)
-#         Scraper.scrape_page
-#         @total = Book.all.length
-#       end
-#       #display list of books
-#       list_books(book)
-#     #handle validation issues in various menus so .find_book is only displayed when appropriate
-#     elsif @input.to_i != 0 && book.is_a?(Array) == false && (book != nil || Book.all.count != 0)
-#       find_book(book)
-#     #handling all other inputs
-#     else
-#       puts "Sorry, that command is not recognized. Please try again."
-#       get_input
-#       input_reply(book)
-#     end
-#  end
    
 #method used to display books, whether list of best books, also liked books, or book descriptions
   def list_books(book=nil)
@@ -220,38 +189,5 @@ class CLI
       book_menu(book)
     end
   end
-  
-# #method used to find and scrape specific book information
-#   def find_book(book=nil)
-#     input = @input.to_i
-    
-#     #ensure number entered is a vlid number from the book list
-#     if input < @total && input > 0
-#       #if a book parameter was handed in, scrape the website for that book
-#       if book != nil
-#         new_book = Scraper.scrape_book_page(book)
-#       #if no book parameter was handed in, find the book in the Book class
-#       else 
-#           new_book = Book.all.find { |book| book.num == input }
-#         #if found book does not have full details, scrape the website for that book
-#         if new_book.rating == nil 
-#           Scraper.scrape_book_page(new_book)
-#         end
-#       end
-      
-#       list_books(new_book)
-      
-#     elsif input > @total || input < 0
-#       puts "That number is not recognized. Please pick a number " + "between 1 and #{@total}".colorize(:green) + "."
-#       get_input
-#       find_book
-#     elsif @input == "exit"
-#       input_reply
-#     else
-#       puts "Please enter " + "numbers between 1 and #{@total}".colorize(:green) + " only."
-#       get_input
-#       find_book
-#     end
-#   end
   
 end
