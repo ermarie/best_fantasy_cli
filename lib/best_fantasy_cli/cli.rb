@@ -4,8 +4,6 @@ class CLI
 #run at beginning of program
   def run 
     main_menu
-    get_input
-    input_reply
   end
   
 ## section of menus for the CLI
@@ -33,7 +31,7 @@ class CLI
         @total = Book.all.length
       end
       #display list of books
-      list_books(book)
+      list_books
     else
       puts "Sorry, that command is not recognized. Please try again."
       get_input
@@ -70,8 +68,8 @@ class CLI
       #find book object
       book = Book.all.find { |book| book.num == input }
       #if found book does not have full details, scrape the website for that book
-      if new_book.rating == nil 
-        Scraper.scrape_book_page(new_book)
+      if book.rating == nil 
+        Scraper.scrape_book_page(book)
       end
       
     list_books(book)
@@ -81,7 +79,7 @@ class CLI
       get_input
       list_reply
     elsif @input == "exit"
-      exit
+      exit_cli
     else
       puts "Please enter " + "numbers between 1 and #{@total}".colorize(:green) + " only."
       get_input
@@ -99,20 +97,20 @@ class CLI
 
     get_input
 
-    also_liked = book.also_liked_books
-    book_reply(also_liked_array)
+    book_reply(book.also_liked_books)
   end
   
-  def book_reply(also_liked_array)
+  def book_reply(also_liked_books)
     if @input == "list books"
+      list_books(also_liked_books)
     elsif @input == "main menu"
       main_menu
     elsif @input == "exit"
-      exit
+      exit_cli
     else
       puts "Sorry, that command is not recognized. Please try again."
       get_input
-      menu_reply
+      book_reply(also_liked_books)
     end
   end
   
@@ -126,13 +124,14 @@ class CLI
     puts "\n----------------------".colorize(:green)
     
     get_input
-    also_liked_reply(also_liked_array[(input - 1)])
+    also_liked_reply(also_liked_array)
   end
   
-  def also_liked_reply(book)
+  def also_liked_reply(also_liked_array)
     input = @input.to_i
+    book = also_liked_array[input - 1]
     if @input == "exit"
-      exit
+      exit_cli
     elsif @input == "main menu"
       main_menu
     elsif input > 0 && input < 7
